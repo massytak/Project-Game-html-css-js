@@ -4,7 +4,10 @@ let oxyg;
 let oxygs = [];
 let gameover;
 let points;
-let decentHelth=0;
+let decentHealth = 0;
+let fullHealthP1 = 300;
+let fullHealthP2=300;
+let totalsBottel = 0;
 
 var rightPressed = false;
 var rightPressedP2 = false;
@@ -20,15 +23,27 @@ const ctx = canvas.getContext("2d");
 
 const W = ctx.canvas.width;
 const H = ctx.canvas.height;
-
+function fullscreen() {
+  const img1 = document.createElement("button");
+  img1.setAttribute("Id", "fullButton");
+  let screenbutton = document.getElementById("fullButton");
+  img1.innerHTML = "play full screen";
+  drawButton(screenbutton, 20, 20);
+}
 function draw() {
   //
+
+  //   var elem = document.getElementById("canvas");
+  // if (elem.requestFullscreen) {
+  //   elem.requestFullscreen();
+  // }
   //1er déssiner le background en image importer
   const img = document.createElement("img");
   img.onload = () => {};
   img.src = "img/fond1.jpg";
   ctx.drawImage(img, 0, 0, W, H);
 
+  // fullscreen();
   //2ème déssiner les plangeur que je vais importer de la classe player1s
   player1.drawPlayerOne();
   player2.drawPlayerTwo();
@@ -37,6 +52,7 @@ function draw() {
   //3ème déssiner les bouteille d'oxygène
   if (frames % 200 === 0) {
     oxygs.push(oxyg);
+    totalsBottel += 1;
   }
 
   oxygs.forEach(function (oxyg) {
@@ -44,6 +60,7 @@ function draw() {
     oxyg.drawOxygeneBottle();
   });
   //
+
   //commande player 1 et player2
   //
   if (downPressed) {
@@ -55,35 +72,60 @@ function draw() {
 
   if (rightPressed) {
     player1.moveRight();
-  } 
-  
+  }
+
   if (leftPressed) {
     player1.moveLeft();
   }
 
-  if(upPressedP2){
-player2.moveUp();
+  if (upPressedP2) {
+    player2.moveUp();
   }
-  if(downPressedP2){
+  if (downPressedP2) {
     player2.moveDown();
   }
   if (rightPressedP2) {
     player2.moveLeftP2();
-  } 
-  
+  }
+
   if (leftPressedP2) {
     player2.moveRightP2();
   }
 
   //4ème les barre de vie de chaque player1 qui incrémante si on touche l'oxygene
   //
-  
-  if(frames%120===0){
-decentHelth-=10
+  let addHealthP1 = 0;
+  let addHealthP2=0;
+
+  for (oxyg of oxygs) {
+    if (oxyg.hits(player1)) {
+      oxyg.clearBottel();
+      addHealthP1 += 9;
+      
+    }
+    if (oxyg.hitss(player2)) {
+      console.log("touché");
+      oxyg.clearBottel();
+      addHealthP2 += 9;
+    }
+    
   }
-  ctx.fillRect(10,5,300+decentHelth,40);
-  ctx.fillStyle='#9EFF00';
   
+  fullHealthP1 += addHealthP1;
+  fullHealthP1 += addHealthP1;
+  if (frames % 32 === 0) {
+    decentHealth += 6;
+  }
+  ctx.fillRect(10, 5, fullHealthP1 - decentHealth, 30);
+  ctx.fillStyle = "#9EFF00";
+  ctx.strokeRect(10,5,300,30);
+  ctx.strokeStyle='red';
+
+  ctx.fillRect(W-10, 5, -fullHealthP2+ decentHealth, 30);
+  ctx.fillStyle = "#9EFF00";
+  ctx.strokeRect(W-10,5,-300,30);
+  ctx.strokeStyle='red';
+
   //5ème dessiner des requi qui défille aleatoirement dans l'espace de jeu
   //
   //6ème des bulle d'oxygen qui monte a la surface pour le look
@@ -95,7 +137,7 @@ function animation() {
 
   oxyg = new oxygene(random(0, W), 0);
 
-  console.log("lanimation a commencé");
+ 
   draw(); //on déssine  tout les element de départ
   if (gameover === false) {
     requestAnimationFrame(animation);
@@ -131,10 +173,10 @@ function keyDownHandler(e) {
     upPressedP2 = true;
   } else if (e.keyCode == 83) {
     downPressedP2 = true;
-  }else if(e.keyCode==81){
-    leftPressedP2=true;
-  }else if(e.keyCode==68){
-    rightPressedP2=true;
+  } else if (e.keyCode == 81) {
+    leftPressedP2 = true;
+  } else if (e.keyCode == 68) {
+    rightPressedP2 = true;
   }
 }
 function keyUpHandler(e) {
@@ -150,47 +192,9 @@ function keyUpHandler(e) {
     upPressedP2 = false;
   } else if (e.keyCode == 83) {
     downPressedP2 = false;
-  }else if(e.keyCode==81){
-    leftPressedP2=false;
-  }else if(e.keyCode==68){
-    rightPressedP2=false;
+  } else if (e.keyCode == 81) {
+    leftPressedP2 = false;
+  } else if (e.keyCode == 68) {
+    rightPressedP2 = false;
   }
 }
-
-// document.onkeydown = function (event) {
-//   console.log("touche appuyee", event);
-//   switch (event.keyCode) {
-//     case 37:
-//       player1.moveLeft();
-//       // deplacer en gauche
-//       break;
-//     case 39:
-//       player1.moveRight();
-//       // deplacer en droite
-//       break;
-//     case 38:
-//       player1.moveUp();
-
-//       break;
-//     case 40:
-//       player1.moveDown();
-
-//       break;
-//     case 68:
-//       player2.moveLeft();
-//       // deplacer en gauche
-//       break;
-//     case 81:
-//       player2.moveRight();
-//       // deplacer en droite
-//       break;
-//     case 90:
-//       player2.moveUp();
-
-//       break;
-//     case 83:
-//       player2.moveDown();
-
-//       break;
-//   }
-// };

@@ -15,12 +15,12 @@ class Player {
     img.src = `./img/${name}.svg`;
   }
   drawPlayerOne() {
-    console.log("l image nest pas encore charger");
+    
     if (!this.img) return;
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
   }
   drawPlayerTwo() {
-    console.log("l image 2 nest pas encore charger");
+    
     if (!this.img) return;
     ctx.scale(-1, 1);
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
