@@ -28,32 +28,34 @@ class Player {
   }
   moveLeft() {
     if (this.x > 0) {
-      this.x -= 12;
+      this.x -= 10;
     }
   }
   moveLeftP2() {
     if(this.x>-W){
-    this.x -= 12;
+    this.x -= 10;
     }
   }
   moveRight() {
     if(this.x<W-this.w){
-    this.x += 12;
+    this.x += 10;
   }
   }
   moveRightP2() {
     if(this.x<(-this.w)){
-    this.x += 12;
+    this.x += 10;
   }
   }
   moveUp() {
     if(this.y>0){
-    this.y -= 12;
+    this.y -= 10;
   }
   }
   moveDown() {
     if(this.y<H -this.h){
-    this.y += 12;
+    this.y += 10;
   }
   }
+  
+  
 }
