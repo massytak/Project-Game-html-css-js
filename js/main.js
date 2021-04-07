@@ -32,6 +32,7 @@ function fullscreen() {
   img1.innerHTML = "play full screen";
   drawButton(screenbutton, 20, 20);
 }
+
 function draw() {
   //
   // le plein ecran
@@ -182,6 +183,8 @@ function pauseMusicFinal() {
   audioFinal.pause();
 }
 
+
+
 function colorHealthgreen(x, y, z) {
   ctx.fillStyle = "#9EFF00";
   ctx.fillRect(x, y, z, 30);
@@ -246,7 +249,9 @@ let index = 0;
 
 const render = () => {
   index++;
+
   setInterval(function () {
+   
     ctx.fillStyle = "#FF005E";
     ctx.font = "bold 40px Courier";
     ctx.fillText("cliquez pour jouer", W / 2 - 200, H / 2 + 300);
@@ -257,6 +262,7 @@ const render = () => {
 };
 
 render();
+
 
 let frames = 0;
 function animation() {
@@ -293,6 +299,7 @@ b.onclick = function () {
   cancelAnimationFrame(animation)
   cancelAnimationFrame(gameoverp)
   playMusic1();
+  
   startsgame();
 };
 
