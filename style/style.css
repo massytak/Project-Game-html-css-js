@@ -72,3 +72,21 @@ padding: 5px;;
 a{
     color:rgba(43, 255, 0, 0.521) ;
 }
+#inputname{
+    color: red;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    width: 70px;
+
+    display: flex;
+    justify-content: space-around;
+}
+.inputP1{
+    position:absolute;
+}
+.inputP2{
+    position:absolute;
+
+}
+
+

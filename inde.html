@@ -14,9 +14,10 @@
       class="musicFinal musicFinalp1"
     ></audio>
     <audio
-      src="sounds/musiqueintro.mp3"
+      src="sounds/Friendship – Declan DP (No Copyright Music).mp3"
       class="musiqueIntro"
-      autoplay></audio>
+      autoplay
+    ></audio>
     <!-- <video width="W" height="H" class="videofinal">
       <source src="img/videocerciuel.mp4" type="video/webm" />
     </video> -->
@@ -24,10 +25,25 @@
       <div class="instruction">
         <h1>Aqua-Game</h1>
 
-        <button id="start-button">Start game</button>
+        <button id="start-button" class="boutonactuelle">Start game</button>
         <button id="try-again">Try again</button>
+        <button id="applyname" class="boutonactuelle">Apply</button>
       </div>
+      <div id="inputname">
+        <form action="" method="get" class="inputP1">
+          <div class="form-example">
+            <label for="name">Name Player1: </label>
+            <input type="text" name="name" id="name1" required />
+          </div>
+        </form>
 
+        <form action="" method="get" class="inputP2">
+          <div class="form-example">
+            <label for="name">Name Player2:</label>
+            <input type="name" name="name" id="name2" required />
+          </div>
+        </form>
+      </div>
       <canvas id="canvas" width="1422" height="800"></canvas>
     </div>
     <footer>

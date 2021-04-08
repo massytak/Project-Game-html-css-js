@@ -10,7 +10,7 @@ let fullHealthP2 = 300;
 let totalsBottel = 0;
 let frams = -800;
 let framsN = 1400;
-
+let noobp1;
 var rightPressed = false;
 var rightPressedP2 = false;
 var leftPressed = false;
@@ -19,6 +19,8 @@ var downPressed = false;
 var downPressedP2 = false;
 var upPressed = false;
 var upPressedP2 = false;
+let nameOfplayer1;
+let nameOfplayer2;
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -32,6 +34,14 @@ function fullscreen() {
   img1.innerHTML = "play full screen";
   drawButton(screenbutton, 20, 20);
 }
+var applicationdesnoms = document.getElementById("applyname");
+var t = document.getElementById("try-again");
+var b = document.getElementById("start-button");
+var inputtext = document.getElementById("inputname");
+
+t.onclick = function () {
+  location.reload();
+};
 
 function draw() {
   //
@@ -63,6 +73,7 @@ function draw() {
     oxyg.y += 6;
     oxyg.drawOxygeneBottle();
   });
+
   //
 
   //commande player 1 et player2
@@ -146,16 +157,33 @@ function draw() {
   ctx.strokeStyle = "red";
 
   if (restOfHealthp2 > -100 || restOfHealthp1 <= 100) {
+    pauseMusicjeux();
     playMusicFinal();
   } else {
+    playMusicjeux();
     pauseMusicFinal();
   }
 
   if (restOfHealthp1 < 0 || restOfHealthp2 > 0) {
     gameover = false;
+    if (restOfHealthp1 <= 0) {
+      noobp1 = `${nameOfplayer2}`;
+    }
+    if (restOfHealthp2 >= 0) {
+      noobp1 = `${nameOfplayer1}`;
+    }
   }
+  ctx.font = "30px serif";
+  ctx.fillStyle = "red";
+  ctx.textBaseline = "hanging";
+  ctx.fillText(`${nameOfplayer1}`, 10, 10);
 
-  if (restOfHealthp2 > -30 || restOfHealthp1 <= 30) {
+  ctx.font = "30px serif";
+  ctx.fillStyle = "red";
+  ctx.textBaseline = "hanging";
+  ctx.fillText(`${nameOfplayer2}`, W - 310, 10);
+
+  if (restOfHealthp2 > -20 || restOfHealthp1 <= 20) {
     if (frames % 12 === 0) {
       const img = document.createElement("img");
       img.onload = () => {};
@@ -183,7 +211,15 @@ function pauseMusicFinal() {
   audioFinal.pause();
 }
 
+function playMusicjeux() {
+  const audiojeux = document.querySelector(".musiqueIntro");
+  audiojeux.play();
+}
 
+function pauseMusicjeux() {
+  const audiojeux = document.querySelector(".musiqueIntro");
+  audiojeux.pause();
+}
 
 function colorHealthgreen(x, y, z) {
   ctx.fillStyle = "#9EFF00";
@@ -205,8 +241,6 @@ function gameoverp() {
   img3.src = "img/danse du cercueil.jpg";
   ctx.drawImage(img3, 0, 0, W, H);
 
-
-  
   ctx.font = "300px serif";
   ctx.fillStyle = "red";
   ctx.textBaseline = "hanging";
@@ -233,28 +267,40 @@ function gameoverp() {
     ctx.fillText("     VE", 200, 250);
   }
 
-  ctx.font = "150px Syne Mono serif";
-  ctx.fillStyle = "#FFA100";
+  ctx.font = "75px Syne Mono serif";
+  ctx.fillStyle = "#0CD544";
   ctx.textBaseline = "hanging";
 
   if (framsN >= 550) {
-    ctx.fillText("A noob is PLAYER1", 100, framsN + 16);
+    ctx.fillText(`The winner is ${noobp1}`, 100, framsN + 16);
   } else {
-    ctx.fillText("A noob is PLAYER1", 100, 550);
+    ctx.fillText(`The winner is ${noobp1}`, 100, 550);
   }
   requestAnimationFrame(gameoverp);
 }
 //je dessine l'avant startgame
 let index = 0;
 
+var inputmp1 = document.querySelector(".inputP1");
+inputmp1.style.top = `${H / 2}px`;
+inputmp1.style.left = `${350}px`;
+var inputmP2 = document.querySelector(".inputP2");
+inputmP2.style.top = `${H / 2}px`;
+inputmP2.style.left = `${W - 400}px`;
 const render = () => {
+  t.style["display"] = "none";
+  b.style["display"] = "none";
+  // if (nameOfplayer1 === true && nameOfplayer2 === true) {
+  //   b.disabled = false;
+  // } else {
+  //   b.disabled = true;
+  // }
   index++;
 
   setInterval(function () {
-   
     ctx.fillStyle = "#FF005E";
     ctx.font = "bold 40px Courier";
-    ctx.fillText("cliquez pour jouer", W / 2 - 200, H / 2 + 300);
+    ctx.fillText("Right your names and apply", W / 2 - 250, H / 2 + 300);
   }, 1000);
   setInterval(() => {
     ctx.clearRect(0, 0, W, H);
@@ -263,6 +309,29 @@ const render = () => {
 
 render();
 
+applicationdesnoms.onclick = function () {
+  getValue();
+
+  if (!nameOfplayer1) {
+    alert("YOU MUST WRITE PLAYER 1 NAMES");
+  }
+  if (!nameOfplayer2) {
+    alert("YOU MUST WRITE PLAYER 2 NAMES");
+  } else if (nameOfplayer1.length >= 1 && nameOfplayer2.length >= 1) {
+    b.style["display"] = "block";
+    applicationdesnoms.style["display"] = "none";
+  }
+};
+
+function getValue() {
+  // Sélectionner l'élément input et récupérer sa valeur
+  var inputnamep1 = document.getElementById("name1").value;
+  // Afficher la valeur
+  nameOfplayer1 = inputnamep1;
+
+  var inputnamep2 = document.getElementById("name2").value;
+  nameOfplayer2 = inputnamep2;
+}
 
 let frames = 0;
 function animation() {
@@ -287,19 +356,18 @@ function startsgame() {
   player2 = new Player("player-2", -W, H / 2);
   animation();
 }
-var t=document.getElementById("try-again");
-t.onclick=function(){
-  location.reload();
-}
-var b=document.getElementById("start-button");
+
 b.onclick = function () {
-   b.disabled=true;
+  b.disabled = true;
+  b.style["display"] = "none";
+  inputtext.style.display = "none";
+  t.style.display = "block";
+  getValue();
   cancelAnimationFrame(render);
-  frames=0;
-  cancelAnimationFrame(animation)
-  cancelAnimationFrame(gameoverp)
-  playMusic1();
-  
+  frames = 0;
+  cancelAnimationFrame(animation);
+  cancelAnimationFrame(gameoverp);
+  playMusicjeux();
   startsgame();
 };
 
