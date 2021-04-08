@@ -7,6 +7,9 @@ body{
     background-position: center;
     background-size: cover;
 }
+html{
+    zoom: 90%;
+}
 h1{
     font-family: 'Syne Mono', monospace;
     font-size:  2.5rem;
