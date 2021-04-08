@@ -282,11 +282,11 @@ function gameoverp() {
 let index = 0;
 
 var inputmp1 = document.querySelector(".inputP1");
-inputmp1.style.top = `${H / 2}px`;
-inputmp1.style.left = `${550}px`;
+inputmp1.style.top = `${H / 3.2}px`;
+inputmp1.style.left = `${W-1150}px`;
 var inputmP2 = document.querySelector(".inputP2");
-inputmP2.style.top = `${H / 2}px`;
-inputmP2.style.left = `${W - 200}px`;
+inputmP2.style.top = `${H / 3.2}px`;
+inputmP2.style.left = `${W - 500}px`;
 const render = () => {
   t.style["display"] = "none";
   b.style["display"] = "none";

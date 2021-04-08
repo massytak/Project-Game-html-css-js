@@ -8,7 +8,7 @@ body{
     background-size: cover;
 }
 html{
-    zoom: 90%;
+    zoom: 100%;
 }
 h1{
     font-family: 'Syne Mono', monospace;
@@ -78,11 +78,12 @@ a{
 #inputname{
     color: red;
     font-weight: bolder;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     width: 70px;
 
     display: flex;
     justify-content: space-around;
+    
 }
 .inputP1{
     position:absolute;
